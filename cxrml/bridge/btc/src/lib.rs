@@ -404,7 +404,7 @@ impl<T: Trait> Module<T> {
         } else {
             return Err("should set CERT_address first");
         };
-        let tx_type = validate_transaction::<T>(&tx, (&receive_address, &cert_address)).unwrap();
+        let tx_type = validate_transaction::<T>(&tx, (&receive_address, &cert_address))?;
         match tx_type {
             TxType::Withdraw => {
                 handle_input::<T>(&tx.raw, &tx.block_hash, &who, &receive_address);
