@@ -19,7 +19,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
@@ -33,18 +33,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # This should work with only the `include`s but it currently doesn't because of this bug:
-        # https://github.community/t5/How-to-use-Git-and-GitHub/GitHub-Actions-Matrix-options-dont-work-as-documented/td-p/29558
         os: [ubuntu-16.04, ubuntu-18.04, ubuntu-latest]
-        include:
-          - os: ubuntu-16.04
-            asset_name: maple-x86_64-ubuntu-16.04-unknown-linux-gnu
-
-          - os: ubuntu-18.04
-            asset_name: maple-x86_64-ubuntu-18.04-unknown-linux-gnu
-
-          - os: ubuntu-latest
-            asset_name: maple-x86_64-ubuntu-latest-unknown-linux-gnu
 
     steps:
     - uses: hecrj/setup-rust-action@master
@@ -61,5 +50,5 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: target/release/chainx
-        asset_name: ${{ matrix.asset_name }}
+        asset_name: chainx-${{ matrix.os }}-${{ github.ref }}-x86_64-unknown-linux-gnu
         tag: ${{ github.ref }}
