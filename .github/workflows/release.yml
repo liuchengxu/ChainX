@@ -38,15 +38,12 @@ jobs:
         os: [ubuntu-16.04, ubuntu-18.04, ubuntu-latest]
         include:
           - os: ubuntu-16.04
-            artifact_name: maple
             asset_name: maple-x86_64-ubuntu-16.04-unknown-linux-gnu
 
           - os: ubuntu-18.04
-            artifact_name: maple
             asset_name: maple-x86_64-ubuntu-18.04-unknown-linux-gnu
 
           - os: ubuntu-latest
-            artifact_name: maple
             asset_name: maple-x86_64-ubuntu-latest-unknown-linux-gnu
 
     steps:
@@ -63,6 +60,6 @@ jobs:
       uses: svenstaro/upload-release-action@v1-release
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: target/release/${{ matrix.artifact_name }}
+        file: target/release/chainx
         asset_name: ${{ matrix.asset_name }}
         tag: ${{ github.ref }}
