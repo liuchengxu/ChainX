@@ -45,10 +45,14 @@ jobs:
     - name: Build
       run: cargo build --release
 
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v1-release
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: target/release/chainx
-        asset_name: chainx-${{ matrix.os }}-${{ github.ref }}-x86_64-unknown-linux-gnu
+        asset_name: chainx-${{ steps.get_version.outputs.VERSION }}-${{ matrix.os }}-x86_64-unknown-linux-gnu
         tag: ${{ github.ref }}
