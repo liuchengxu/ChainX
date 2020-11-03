@@ -14,12 +14,9 @@ jobs:
       matrix:
         runtime: ['chainx']
     container:
-      image: chevdor/srtool:nightly-2020-07-20
+      image: chainxorg/srtool
       volumes:
         - ${{ github.workspace }}:/build
-      env:
-        PACKAGE: ${{ matrix.runtime }}-runtime
-        RUSTC_VERSION: nightly-2020-07-20
     steps:
       - uses: actions/checkout@v2
       - name: Cache target dir
